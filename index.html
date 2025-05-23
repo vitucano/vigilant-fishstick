@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>TE AMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #ffe6e6;
@@ -10,48 +12,463 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            overflow: hidden; 
+            perspective: 1800px; 
+            position: relative;
         }
-        .container {
-            text-align: center;
-            padding: 20px;
-            background-color: #fff0f5;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+        /* Corações flutuantes - Mantidos como estão */
+        @keyframes floatHeart {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(360deg); opacity: 0; }
         }
-        h1 {
-            color: #d6336c;
+
+        .heart-bg {
+            position: fixed;
+            bottom: -50px;
+            font-size: 2em;
+            color: rgba(214, 51, 108, 0.5);
+            animation: floatHeart 10s infinite ease-in-out;
+            z-index: -1;
+            pointer-events: none;
         }
-        p {
-            font-size: 1.2em;
-            margin-top: 20px;
+
+        /* Adicionando mais corações para um efeito mais completo */
+        .heart-bg:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 2.2em; }
+        .heart-bg:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 1.8em; }
+        .heart-bg:nth-child(3) { left: 40%; animation-delay: 4s; font-size: 2.5em; }
+        .heart-bg:nth-child(4) { left: 55%; animation-delay: 1s; font-size: 1.5em; }
+        .heart-bg:nth-child(5) { left: 70%; animation-delay: 3s; font-size: 2.3em; }
+        .heart-bg:nth-child(6) { left: 85%; animation-delay: 5s; font-size: 1.9em; }
+        .heart-bg:nth-child(7) { left: 5%; animation-delay: 7s; font-size: 2.8em; }
+        .heart-bg:nth-child(8) { left: 90%; animation-delay: 9s; font-size: 1.6em; }
+        .heart-bg:nth-child(9) { left: 30%; animation-delay: 6s; font-size: 2.1em; }
+        .heart-bg:nth-child(10) { left: 75%; animation-delay: 8s; font-size: 1.7em; }
+        .heart-bg:nth-child(11) { left: 15%; animation-delay: 1.5s; font-size: 2.0em; }
+        .heart-bg:nth-child(12) { left: 60%; animation-delay: 4.5s; font-size: 2.4em; }
+        .heart-bg:nth-child(13) { left: 20%; animation-delay: 0.7s; font-size: 1.9em; }
+        .heart-bg:nth-child(14) { left: 80%; animation-delay: 3.2s; font-size: 2.6em; }
+        .heart-bg:nth-child(15) { left: 45%; animation-delay: 2.5s; font-size: 1.7em; }
+        .heart-bg:nth-child(16) { left: 50%; animation-delay: 0.2s; font-size: 2.3em; }
+        .heart-bg:nth-child(17) { left: 22%; animation-delay: 1.8s; font-size: 1.5em; }
+        .heart-bg:nth-child(18) { left: 78%; animation-delay: 4.1s; font-size: 2.0em; }
+        .heart-bg:nth-child(19) { left: 35%; animation-delay: 0.9s; font-size: 2.1em; }
+        .heart-bg:nth-child(20) { left: 65%; animation-delay: 2.7s; font-size: 1.8em; }
+        .heart-bg:nth-child(21) { left: 12%; animation-delay: 1.1s; font-size: 2.5em; }
+        .heart-bg:nth-child(22) { left: 88%; animation-delay: 3.8s; font-size: 1.7em; }
+
+        /* Estilos para o Envelope e Carta */
+        .envelope-wrapper {
+            position: relative;
+            width: 600px; 
+            height: 400px; 
+            max-width: 90vw; 
+            max-height: 80vh; 
+            transform-style: preserve-3d;
+            transition: transform 1.5s ease-in-out;
+            z-index: 10;
         }
-        a {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 20px;
+
+        .envelope-wrapper.open {
+            transform: translateY(-80px) rotateX(10deg);
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #f7e1d7; /* Cor do envelope */
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+        }
+
+        /* Lacre da carta */
+        .seal {
+            position: absolute;
+            width: 100px;
+            height: 100px;
             background-color: #d6336c;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease-in-out, opacity 0.5s ease, background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4em;
             color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
+            user-select: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
-        a:hover {
+
+        .seal:hover {
+            transform: translate(-50%, -50%) scale(1.1);
             background-color: #a52a4a;
         }
+
+        .seal.clicked {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            pointer-events: none;
+        }
+
+        /* Carta interna - Papel Antigo e 3D */
+        .card {
+            position: absolute;
+            width: calc(100% - 60px); 
+            height: 100%; 
+            top: 30px; 
+            left: 30px;
+            background-color: #fcf8e3; /* Cor de papel envelhecido */
+            /* Adiciona textura de papel antigo (substitua a URL pela sua textura se tiver) */
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"%3E%3Cpath fill="%23dcd2c4" fill-opacity="0.4" d="M1 3h1v1H1V3zm2-2h1v1H3V1z"%3E%3C/path%3E%3C/svg%3E'); /* Textura sutil de papel, pode ser substituída por uma imagem mais complexa */
+            border-radius: 8px;
+            box-shadow: 
+                inset 0 0 15px rgba(0,0,0,0.1), /* Sombra interna para profundidade 3D */
+                0 3px 10px rgba(0,0,0,0.1); /* Sombra externa */
+            z-index: 0; 
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            transition: transform 1s ease-out, opacity 1s ease-out;
+            overflow-y: auto; 
+            padding: 30px; 
+            box-sizing: border-box;
+            text-align: center; 
+            filter: drop-shadow(0 5px 8px rgba(0,0,0,0.2)); /* Para dar um pouco mais de "peso" 3D ao papel */
+        }
+
+        .card-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out 1.2s, transform 1s ease-out 1.2s;
+            max-width: 100%;
+        }
+
+        /* Abas do envelope */
+        .envelope-top,
+        .envelope-bottom,
+        .envelope-left,
+        .envelope-right {
+            position: absolute;
+            background-color: #e6c2b1;
+            transition: transform 0.8s ease-in-out;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            border-radius: 5px;
+            /* Adicionando uma pequena sombra para as abas também terem profundidade */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .envelope-top {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            transform-origin: top center;
+            z-index: 4;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .envelope-bottom {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            transform-origin: bottom center;
+            z-index: 4;
+            clip-path: polygon(0 100%, 100% 100%, 50% 0%);
+        }
+        
+        .envelope-left {
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            transform-origin: left center;
+            z-index: 3;
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        .envelope-right {
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            transform-origin: right center;
+            z-index: 3;
+            clip-path: polygon(100% 0, 0 50%, 100% 100%);
+        }
+
+        /* Classes para a animação de abertura */
+        .envelope.open .envelope-top {
+            transform: rotateX(180deg);
+        }
+
+        .envelope.open .envelope-bottom {
+            transform: rotateX(-180deg);
+        }
+
+        .envelope.open .envelope-left {
+            transform: rotateY(-180deg);
+        }
+
+        .envelope.open .envelope-right {
+            transform: rotateY(180deg);
+        }
+
+        .envelope.open .card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            z-index: 1; 
+        }
+        
+        .envelope.open .card-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilos para o conteúdo de texto dentro da carta - Letra Cursiva e efeito de Tinta */
+        .card-content h1 {
+            font-family: 'Dancing Script', cursive; /* Fonte cursiva */
+            color: #8b0000; /* Cor de tinta escura para o título */
+            margin-bottom: 20px; 
+            font-size: 2.8em; /* Aumenta um pouco para a fonte cursiva ser mais legível */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra suave para efeito de tinta */
+        }
+
+        .card-content p {
+            font-family: 'Dancing Script', cursive; /* Fonte cursiva */
+            font-size: 1.6em; /* Tamanho da fonte cursiva para o parágrafo */
+            line-height: 1.8; /* Aumenta um pouco para a cursiva ter espaço */
+            color: #4b0082; /* Cor de tinta roxa escura, pode ser preta ou azul marinho */
+            text-align: justify;
+            margin-bottom: 0;
+            max-width: 95%; 
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.08); /* Sombra mais suave para o parágrafo */
+            hyphens: auto; /* Permite quebras de palavra em navegadores compatíveis */
+        }
+
+        /* Animações para o conteúdo da carta ao aparecer */
+        .card-content h1,
+        .card-content p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .card-content h1.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInScale 1s ease-out;
+        }
+        .card-content p.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.2s;
+        }
+
+        @keyframes fadeInScale {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Media queries para Responsividade em CELULAR (Vertical) */
+        @media (max-width: 768px) {
+            .envelope-wrapper {
+                width: 95vw; 
+                height: 75vh; /* Ajustado um pouco para dar mais espaço vertical */
+            }
+
+            .seal {
+                width: 80px;
+                height: 80px;
+                font-size: 3em;
+            }
+
+            .card {
+                width: calc(100% - 40px); 
+                height: calc(100% - 40px); 
+                top: 20px;
+                left: 20px;
+                padding: 20px;
+            }
+
+            .card-content h1 {
+                font-size: 2em; /* Reduzido para telas menores */
+            }
+
+            .card-content p {
+                font-size: 1.2em; /* Reduzido para telas menores */
+            }
+        }
+
+        @media (max-width: 480px) { 
+            .envelope-wrapper {
+                width: 98vw; 
+                height: 88vh; /* Ainda mais altura para o conteúdo em celulares pequenos */
+            }
+
+            .seal {
+                width: 70px;
+                height: 70px;
+                font-size: 2.5em;
+            }
+
+            .card {
+                padding: 15px; 
+                width: calc(100% - 30px); 
+                height: calc(100% - 30px); 
+                top: 15px;
+                left: 15px;
+            }
+
+            .card-content h1 {
+                font-size: 1.6em;
+            }
+            .card-content p {
+                font-size: 1em; /* Fonte ainda menor */
+                line-height: 1.6; /* Ajuste para legibilidade da cursiva */
+            }
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Happy Valentine's Day!</h1>
-        <p>Oi minha princesa!! Esse é o primeiro e único dia dos namorados que passaremos longe um do outro.
-            O calor do seu corpo faz falta aqui, suas crises de raiva quando brinco e, principalmente, o seu beijo molhado (outra coisa molhada que faz com a boca também, mas não vem ao caso).
-        Não me apaixonei por você no primeiro beijo ou na primeiro sexo, mas sim naquele conversa foomos forçados a ter lá no Country já que nos deixaram sozinhos né...
-    Ali senti uma conexão muito boa, confesso que não imaginaria sentir tudo que senti naquele dia. Infelizmente você perdeu a chance de ser feliz mais cedo me dando aqueles foras que não quero entrar em detalhes.
-Se erramos no começo, fomos o erro que deu certo, estamos aí pra provar. Quando penso no meu futuro, você sempre está lá, você e nossos 3 filhos (nenhum mulher pra não ter dor de cabeça).
-Enfim, você já sabe o quanto te amo, agora clique no botão abaixo.</p>
-        <a href="https://youtu.be/kPa7bsKwL-c?si=CP0PDdj6tQaTZIuZ" target="_blank">É aqui mesmo princesa</a>
+    <span class="heart-bg">❤️</span>
+    <span class="heart-bg">💖</span>
+    <span class="heart-bg">💕</span>
+    <span class="heart-bg">💘</span>
+    <span class="heart-bg">💞</span>
+    <span class="heart-bg">💗</span>
+    <span class="heart-bg">❤️</span>
+    <span class="heart-bg">💖</span>
+    <span class="heart-bg">💕</span>
+    <span class="heart-bg">💘</span>
+    <span class="heart-bg">💞</span>
+    <span class="heart-bg">💗</span>
+    <span class="heart-bg">❤️</span>
+    <span class="heart-bg">💖</span>
+    <span class="heart-bg">💕</span>
+    <span class="heart-bg">💘</span>
+    <span class="heart-bg">💞</span>
+    <span class="heart-bg">💗</span>
+    <span class="heart-bg">❤️</span>
+    <span class="heart-bg">💖</span>
+    <span class="heart-bg">💕</span>
+    <span class="heart-bg">💘</span>
+
+
+    <div class="envelope-wrapper">
+        <div class="envelope">
+            <div class="envelope-top"></div>
+            <div class="envelope-bottom"></div>
+            <div class="envelope-left"></div>
+            <div class="envelope-right"></div>
+            
+            <div class="seal" id="sealButton">💌</div> 
+            
+            <div class="card">
+                <div class="card-content">
+                    <h1 id="mainTitle">Happy Valentine's Day!</h1>
+                    <p id="mainParagraph">Oi minha princesa!! Esse é o primeiro e único dia dos namorados que passaremos longe um do outro.
+                        O calor do seu corpo faz falta aqui, suas crises de raiva quando brinco e, principalmente, o seu beijo molhado (outra coisa molhada que faz com a boca também, mas não vem ao caso).
+                    Não me apaixonei por você no primeiro beijo ou na primeiro sexo, mas sim naquele conversa foomos forçados a ter lá no Country já que nos deixaram sozinhos né...
+                Ali senti uma conexão muito boa, confesso que não imaginaria sentir tudo que senti naquele dia. Infelizmente você perdeu a chance de ser feliz mais cedo me dando aqueles foras que não quero entrar em detalhes.
+            Se erramos no começo, fomos o erro que deu certo, estamos aí pra provar. Quando penso no meu futuro, você sempre está lá, você e nossos 3 filhos (nenhum mulher pra não ter dor de cabeça).
+            Espero desfrutar os melhores momentos ao seu lado, feliz dia dos namorados, te amo!</p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <audio id="myAudio" preload="auto">
+        <source src="Lady Gaga, Bruno Mars - Die With A Smile.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <script>
+        const sealButton = document.getElementById('sealButton');
+        const envelope = document.querySelector('.envelope');
+        const envelopeWrapper = document.querySelector('.envelope-wrapper');
+        const card = document.querySelector('.card');
+        const mainTitle = document.getElementById('mainTitle');
+        const mainParagraph = document.getElementById('mainParagraph');
+        const myAudio = document.getElementById('myAudio');
+
+        let isEnvelopeOpen = false;
+
+        sealButton.addEventListener('click', function() {
+            if (!isEnvelopeOpen) {
+                // Abre o envelope
+                envelope.classList.add('open');
+                envelopeWrapper.classList.add('open');
+                card.classList.add('open');
+
+                // Faz o lacre sumir suavemente
+                sealButton.classList.add('clicked');
+
+                // Toca a música
+                myAudio.play();
+
+                // Revela o título e parágrafo com atraso, após a carta se abrir completamente
+                setTimeout(() => {
+                    mainTitle.classList.add('visible');
+                    mainParagraph.classList.add('visible');
+                }, 1500); // Atraso de 1.5 segundos para o texto aparecer
+
+                isEnvelopeOpen = true;
+
+            } else {
+                // Se a carta já estiver aberta, os cliques no lacre podem pausar/reiniciar a música
+                // e esconder/revelar o texto, mas o envelope em si permanece aberto.
+                // Como o lacre sumiu, essa parte do código não será executada.
+                // Se você quiser um controle de pausa/play após a abertura,
+                // precisará de outro elemento na carta ou de mais lógica.
+            }
+        });
+
+        // Quando a música termina:
+        myAudio.addEventListener('ended', function() {
+            myAudio.currentTime = 0; // Volta para o início para próxima reprodução
+
+            // Fecha a carta (volta ao estado inicial)
+            envelope.classList.remove('open');
+            envelopeWrapper.classList.remove('open');
+            card.classList.remove('open');
+            mainTitle.classList.remove('visible');
+            mainParagraph.classList.remove('visible');
+
+            // Faz o lacre reaparecer
+            sealButton.classList.remove('clicked');
+            sealButton.textContent = '💌';
+
+            isEnvelopeOpen = false; // Reseta a flag
+        });
+
+        // Opcional: Sincroniza o texto se a música for pausada de alguma forma externa
+        myAudio.addEventListener('pause', function() {
+            if (isEnvelopeOpen && !myAudio.ended) { 
+                mainTitle.classList.remove('visible');
+                mainParagraph.classList.remove('visible');
+            }
+        });
+
+        myAudio.addEventListener('playing', function() {
+            if (isEnvelopeOpen) {
+                sealButton.classList.add('clicked');
+            }
+        });
+    </script>
 </body>
 </html>
